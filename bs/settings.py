@@ -37,6 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # install bs application
+    'main.apps.MainConfig',
+    'login.apps.LoginConfig',
+    'user.apps.UserConfig',
+    'admin.apps.AdminConfig',
+    'api.apps.ApiConfig',
 ]
 
 MIDDLEWARE = [
