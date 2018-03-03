@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views.decorators.http import require_POST
 
 # Create your views here.
 
@@ -43,3 +44,8 @@ def signup(request):
     elif request.method == "POST":
         # 处理用户注册请求
         pass
+
+
+@require_POST
+def logout(request):
+    pass
