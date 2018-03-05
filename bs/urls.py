@@ -21,6 +21,6 @@ urlpatterns = [
     path('', include('main.urls')),
     path('login/', include('login.urls')),
     path('user/', include('user.urls')),
-    path('bs/admin/', include('admin.urls')),
+    path('bs/admin/', include('myadmin.urls')),
     path('api/', include('api.urls')),
 ]
