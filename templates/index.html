@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} 小区物业管理系统 {% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-theme.min.css' %}">
+</head>
+<body>
+    {% block content %}
+        <h1>Index <small>首页</small></h1>
+        <h2>
+            Hello, <small>{{ name }}!</small>
+        </h2>
+    {% endblock %}
+</body>
+</html>
