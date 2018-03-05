@@ -42,8 +42,8 @@ INSTALLED_APPS = [
     'main.apps.MainConfig',
     'login.apps.LoginConfig',
     'user.apps.UserConfig',
-    'admin.apps.AdminConfig',
     'api.apps.ApiConfig',
+    'myadmin.apps.MyadminConfig',
 ]
 
 MIDDLEWARE = [
