@@ -121,14 +121,16 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-# TIME_ZONE = 'UTC' (Defaults TIME_ZONE -  America/Chicago)
-TIME_ZONE = 'CN'    # CN - Asia/Shanghai - Beijing Time
+
+# USE_TZ = True
+# TIME_ZONE = 'UTC' #(Defaults TIME_ZONE -  America/Chicago)
+USE_TZ = False
+TIME_ZONE = 'Asia/Shanghai'    # CN - Asia/Shanghai - Beijing Time
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
