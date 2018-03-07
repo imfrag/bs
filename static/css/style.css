@@ -1,0 +1,65 @@
+.header-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 94px;
+    width: 100%;
+    /*background-color: #3c3c3c;*/
+    border-bottom: gray solid 1px;
+}
+
+/*
+    登录界面
+ */
+.content-form {
+    padding-top: 200px;
+    background-image: url("../image/1920x1080/01.jpg");
+    background-size: cover;
+}
+
+.content-background {
+    width: 400px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 15px;
+}
+
+.row:nth-child(1) {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.row:nth-child(1) img {
+    display: block;
+    margin: 0 auto;
+}
+
+form input {
+    margin-bottom: 20px;
+}
+
+.row:nth-child(3) {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.row:nth-child(3) div:nth-child(2) {
+    text-align: right;
+}
+
+.redirect-icon {
+    width: 370px;
+    margin-bottom: 25px;
+    padding-top: 20px;
+    text-align: center;
+    border-top: gray solid 1px;
+}
+
+.redirect-icon a {
+    margin: 0 5px;
+}
+
+/* global */
+a:hover {
+    text-decoration: none;
+}
