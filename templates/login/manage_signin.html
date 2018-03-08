@@ -1,7 +1,16 @@
-{% extends 'login/base.html' %}
+{% extends 'login/signin.html' %}
+{% load static %}
 
 {% block title %}
     Manage Signin
+{% endblock %}
+
+{% block style %}
+    <style>
+        .redirect-icon a{
+            color: #000;
+        }
+    </style>
 {% endblock %}
 
 {% block signin_action %}
@@ -10,5 +19,20 @@
 
 
 {% block label_name %}
-    Staff ID
+Staff ID
+{% endblock %}
+
+{% block placeholder_username %}
+Staff ID or Email
+{% endblock %}
+
+{% block staff_admin %}
+    <div class="redirect-icon">
+        <h4>or you sign in as</h4>
+        <a href="{% url 'signin' 3 %}">
+            <img src="{% static 'image/icon/icon-admin.png' %}"
+                 alt="Sign in as admin">
+            Admin
+        </a>
+    </div>
 {% endblock %}

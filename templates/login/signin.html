@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-lg-12 div-form">
             <form method="post"
-                  action="{% url 'signup' %}">
+                  action="{% block signin_action %}{% endblock %}">
                 {% csrf_token %}
                 <div class="form-group">
                     <label class="sr-only" for="username">
@@ -13,7 +13,7 @@
                     <input type="text" class="form-control"
                            name="username"
                            id="username"
-                           placeholder="Username">
+                           placeholder="{% block placeholder_username %}{% endblock %}">
                 </div>
                 <div class="form-group">
                     <label class="sr-only"
@@ -23,28 +23,24 @@
                            id="input_password"
                            placeholder="Password">
                 </div>
-                <div class="form-group">
-                    <label class="sr-only"
-                           for="exampleInputEmail1">E-mail</label>
-                    <input type="email" class="form-control"
-                           name="email"
-                           id="exampleInputEmail1"
-                           placeholder="E-mail address">
-                </div>
                 <input type="hidden" name="auth" value="1">
                 <button type="submit"
                         class="btn btn-primary btn-block">
-                    Sign up
+                    Submit
                 </button>
             </form>
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-12">
-            <a href="{% url 'signin' 1 %}">Have a account?</a>
+        <div class="col-lg-6">
+            <a href="#">Forget Password?</a>
         </div>
         {% block only_user_login %}
 
         {% endblock %}
     </div>
+    {% block staff_admin %}
+
+    {% endblock %}
 {% endblock %}
+

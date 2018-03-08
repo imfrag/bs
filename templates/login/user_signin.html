@@ -1,4 +1,5 @@
-{% extends 'login/base.html' %}
+{% extends 'login/signin.html' %}
+{% load static %}
 
 {% block title %}
     User Signin
@@ -11,4 +12,14 @@
 
 {% block label_name %}
     Username
+{% endblock %}
+
+{% block placeholder_username %}
+Username or Email
+{% endblock %}
+
+{% block only_user_login %}
+    <div class="col-lg-6">
+        <a href="{% url 'signup' %}">Sign Up</a>
+    </div>
 {% endblock %}
