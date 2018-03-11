@@ -33,6 +33,7 @@ class House(models.Model):
 
     house_id = models.IntegerField(primary_key=True)
     location = models.CharField(max_length=100, unique=True)
+    size = models.SmallIntegerField()
     text_description = models.CharField(max_length=100)
     image_description = models.ImageField()
 
@@ -50,7 +51,7 @@ class Car(models.Model):
 
     car_id = models.IntegerField(primary_key=True)
     car_model = models.CharField(max_length=10)
-    car_number = models.CharField(max_length=10)
+    car_number = models.CharField(max_length=10, unique=True)
 
     def __str__(self):
         return "%s - %s - %s" % (self.car_id,
