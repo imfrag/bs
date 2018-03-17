@@ -33,7 +33,7 @@ class House(models.Model):
 
     house_id = models.IntegerField(primary_key=True)
     location = models.CharField(max_length=100, unique=True)
-    size = models.SmallIntegerField()
+    size = models.SmallIntegerField(default=0)
     text_description = models.CharField(max_length=100)
     image_description = models.ImageField()
 
