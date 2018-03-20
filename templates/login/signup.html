@@ -3,36 +3,43 @@
 {% block sign_in_or_up %}
     <div class="row">
         <div class="col-lg-12 div-form">
-            <form method="post"
-                  action="{% url 'signup' %}">
+            <form method="post">
                 {% csrf_token %}
-                <div class="form-group">
+                <div class="form-group has-feedback">
                     <label class="sr-only" for="username">
                         {% block label_name %}{% endblock %}
                     </label>
                     <input type="text" class="form-control"
                            name="username"
                            id="username"
-                           placeholder="Username">
+                           placeholder="Username"
+                           aria-describedby="username">
+                    <span class="glyphicon form-control-feedback"
+                          aria-hidden="true"></span>
                 </div>
-                <div class="form-group">
+                <div class="form-group has-feedback">
                     <label class="sr-only"
-                           for="exampleInputPassword1">Password</label>
+                           for="password">Password</label>
                     <input type="password" class="form-control"
                            name="password"
-                           id="input_password"
-                           placeholder="Password">
+                           id="password"
+                           placeholder="Password"
+                           aria-describedby="password">
+                    <span class="glyphicon form-control-feedback"
+                          aria-hidden="true"></span>
                 </div>
-                <div class="form-group">
+                <div class="form-group has-feedback">
                     <label class="sr-only"
-                           for="exampleInputEmail1">E-mail</label>
+                           for="email">E-mail</label>
                     <input type="email" class="form-control"
                            name="email"
-                           id="exampleInputEmail1"
+                           id="email"
                            placeholder="E-mail address">
+                    <span class="glyphicon form-control-feedback"
+                          aria-hidden="true"></span>
                 </div>
-                <input type="hidden" name="auth" value="1">
-                <button type="submit"
+                <button type="button"
+                        id="submit"
                         class="btn btn-primary btn-block">
                     Sign up
                 </button>
@@ -47,4 +54,117 @@
 
         {% endblock %}
     </div>
+{% endblock %}
+
+{% block script %}
+    <script>
+        $(document).ready(function () {
+            $('.content-form').css('height', $(window).height());
+
+            function is_pwd_valid(password) {
+                return password.length >= 6;
+            }
+
+            function is_email_valid(email) {
+                var re = /^[\w\.]+@\w+\.[A-Za-z]+/;
+                return re.test(email)
+            }
+
+
+            $('#submit').click(function () {
+                var username = $('#username');
+                var password = $('#password');
+                var email = $('#email');
+
+                if (username.val() && password.val() && email.val()) {
+                    if (is_pwd_valid(password.val()) && is_email_valid(email.val())) {
+                        var get_url = "{% url 'signup' %}"
+                        var params = '?username=' + username.val() + '&email=' +
+                            email.val();
+                        $.get(get_url + params, function (response, status_code) {
+                            var username_msg = response.username_msg;
+                            var email_msg = response.email_msg;
+                            var code = response.code;
+
+                            if (code == 2) {
+                                if (username_msg) {
+                                    username.attr('placeholder', username_msg)
+                                    username.parent().removeClass('has-success').addClass('has-error');
+                                    username.siblings('span').removeClass('glyphicon-ok').addClass('glyphicon-remove');
+                                    username.val("");
+                                    username.attr('placeholder', username_msg)
+                                } else {
+                                    username.parent().removeClass('has-error').addClass
+                                    ('has-success');
+                                    username.siblings('span').removeClass('glyphicon-remove').addClass
+                                    ('glyphicon-ok');
+                                }
+
+                                if (email_msg) {
+                                    email.parent().removeClass('has-success').addClass('has-error');
+                                    email.siblings('span').removeClass('glyphicon-ok').addClass
+                                    ('glyphicon-remove');
+                                    email.val("");
+                                    email.attr('placeholder', '该邮箱已被注册');
+                                } else {
+                                    email.parent().removeClass('has-error').addClass
+                                    ('has-success');
+                                    email.siblings('span').removeClass('glyphicon-remove')
+                                        .addClass
+                                        ('glyphicon-ok');
+                                }
+
+                                return;
+                            } else if (code == 1) {
+                                $('form').attr('action', "{% url 'signup' %}")
+                                $('form').submit()
+                            }
+                        })
+                        return;
+                    }
+                }
+                if (!username.val()) {
+                    username.parent().removeClass('has-success').addClass('has-error');
+                    username.siblings('span').removeClass('glyphicon-ok').addClass('glyphicon-remove');
+                    username.attr('placeholder', '用户名不能为空');
+                } else {
+                    username.parent().removeClass('has-error').addClass
+                    ('has-success');
+                    username.siblings('span').removeClass('glyphicon-remove').addClass
+                    ('glyphicon-ok');
+                }
+                if (!password.val() || !is_pwd_valid(password.val())) {
+                    password.parent().removeClass('has-success').addClass
+                    ('has-error');
+                    password.siblings('span').removeClass('glyphicon-ok')
+                        .addClass
+                        ('glyphicon-remove');
+                    password.attr('placeholder', '密码不能为空且至少6位');
+                } else {
+                    password.parent().removeClass('has-error').addClass
+                    ('has-success');
+                    password.siblings('span').removeClass('glyphicon-remove')
+                        .addClass
+                        ('glyphicon-ok');
+                }
+                if (!email.val() || !is_email_valid(email.val())) {
+                    email.parent().removeClass('has-success').addClass('has-error');
+                    email.siblings('span').removeClass('glyphicon-ok').addClass
+                    ('glyphicon-remove');
+                    email.attr('placeholder', '邮箱不能为空或格式不正确');
+                } else {
+                    email.parent().removeClass('has-error').addClass
+                    ('has-success');
+                    email.siblings('span').removeClass('glyphicon-remove')
+                        .addClass
+                        ('glyphicon-ok');
+                }
+
+                return;
+
+            })
+        })
+
+
+    </script>
 {% endblock %}
