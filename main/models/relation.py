@@ -10,7 +10,7 @@ class RelHouseHolder(models.Model):
         db_table = "rel_house_holder"
         ordering = ['-checkin_time']
 
-    rel_id = models.IntegerField(primary_key=True)
+    rel_id = models.AutoField(primary_key=True)
     house_id = models.IntegerField(unique=True)
     householder_id = models.IntegerField()
     checkin_time = models.DateTimeField(default=timezone.now)
@@ -29,7 +29,7 @@ class RelCarHolder(models.Model):
         db_table = "rel_car_holder"
         ordering = ['checkin_time']
 
-    rel_id = models.IntegerField(primary_key=True)
+    rel_id = models.AutoField(primary_key=True)
     car_id = models.IntegerField(unique=True)
     householder_id = models.IntegerField()
     checkin_time = models.DateTimeField(default=timezone.now)
@@ -46,7 +46,7 @@ class RelHouseholderRepair(models.Model):
         db_table = "rel_householder_repair"
         ordering = ['repair_id']
 
-    rel_id = models.IntegerField(primary_key=True)
+    rel_id = models.AutoField(primary_key=True)
     householder_id = models.IntegerField()
     repair_id = models.IntegerField()
 
@@ -61,7 +61,7 @@ class RelStaffProfile(models.Model):
     class Meta:
         db_table = "rel_staff_profile"
 
-    rel_id = models.IntegerField(primary_key=True)
+    rel_id = models.AutoField(primary_key=True)
     staff_id = models.IntegerField()
     profile_id = models.IntegerField()
 

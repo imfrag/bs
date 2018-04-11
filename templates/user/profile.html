@@ -1,58 +1,124 @@
-<div class="container-fluid">
-    <div class="row">
-      <div class="col-lg-7">
-        <h2 style="text-indent: 50px">基本信息</h2>
-        <hr>
-        <form class="form-horizontal">
-          <div class="form-group">
-            <label class="col-sm-4 control-label">用户名：</label>
-            <div class="col-sm-4">
-              <p class="form-control-static">rezz</p>
+{% extends 'user/base.html' %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-7">
+                <h2 style="text-indent: 50px">基本信息</h2>
+                <hr>
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">用户名：</label>
+                        <div class="col-sm-4">
+                            <p class="form-control-static">{{ username }}</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">邮箱地址：</label>
+                        <div class="col-sm-4">
+                            <p class="form-control-static">
+                                {% if email %} {{ email }} {% else %} {{ request.session.user.email }} {% endif %}</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">注册时间：</label>
+                        <div class="col-sm-4">
+                            <p class="form-control-static">{{ request.session.user.register_time }}</p>
+                        </div>
+                    </div>
+                </form>
             </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-4 control-label">邮箱地址：</label>
-            <div class="col-sm-4">
-              <p class="form-control-static">123456789@qq.com</p>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-4 control-label">注册时间：</label>
-            <div class="col-sm-4">
-              <p class="form-control-static">2018-3-15</p>
-            </div>
-          </div>
-        </form>
-      </div>
-      <div class="col-lg-7">
-        <h2 style="text-indent: 50px">个人信息</h2>
-        <hr>
-        <form class="form-horizontal">
-          <div class="form-group">
-            <label for="inputUsername3" class="col-sm-4
+            <div class="col-lg-7">
+                <h2 style="text-indent: 50px">个人信息</h2>
+                <hr>
+                <form class="form-horizontal" method="POST" action="{% url 'update_profile' request.session.user.username %}"> {% csrf_token %}
+                    <div class="form-group has-feedback">
+                        <label for="inputUsername3" class="col-sm-4
             control-label">真实姓名：</label>
-            <div class="col-sm-4">
-              <input type="text" class="form-control" id="inputUsername3" placeholder="">
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="tel" class="col-sm-4 control-label">手机号码：</label>
-            <div class="col-sm-4">
-              <input type="text" class="form-control" id="tel" placeholder="">
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="date" class="col-sm-4 control-label">生日：</label>
-            <div class="col-sm-4">
-              <input type="date" class="form-control" id="date" placeholder="">
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="col-sm-offset-4 col-sm-10">
-              <button type="submit" class="btn btn-primary">保存修改</button>
-            </div>
-          </div>
-        </form>
-      </div>
+                        <div class="col-sm-4">
+                            {% if request.session.user.realname %}
+                                <p class="form-control-static">{{ request.session.user.realname }}</p> {% else %}
+                                <input type="text" class="form-control" name="realname" id="realname" placeholder="真实姓名">
+                                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <label for="tel" class="col-sm-4 control-label">手机号码：</label>
+                        <div class="col-sm-4">
+                            {% if request.session.user.tel %}
+                            <p class="form-control-static">{{ request.session.user.tel }}</p> {% else %}
+                            <input type="text" class="form-control" name="tel" id="tel" placeholder="手机号码">
+                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                        {% endif %}
+                        </div>
+                    </div>
+                </form>
+                {% if request.session.user.realname and request.session.user.tel %} {% else %}
+                    <div class="form-group">
+                        <div class="col-sm-offset-4 col-sm-10">
+                            <button type="submit" class="btn btn-primary">保存修改</button>
+                        </div>
+                    </div> {% endif %} </div>
+        </div>
     </div>
-</div>
+{% endblock %}
+{% block script %}
+    <script>
+        $(document).ready(function () {
+            function is_realname_valid(realname) {
+                return realname.length >= 2;
+            }
+
+            function is_tel_valid(tel) {
+                var re = /^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/;
+                return re.test(tel)
+            }
+
+            $("button[type='submit']").click(function () {
+                var realname = $('#realname');
+                var tel = $('#tel');
+                if (is_realname_valid(realname.val()) && is_tel_valid(tel.val())) {
+                    params = '?tel=' + tel.val();
+                    $.get("{% url 'update_profile' request.session.user.username %}"
+                        + params, function (response) {
+                        console.log(response['STATUS']);
+                        if (response['STATUS'] == "1") {
+                            $('form[method="POST"]').submit();
+                        } else {
+                            tel.parent().removeClass('has-success').addClass
+                            ('has-error');
+                            tel.siblings('span').removeClass('glyphicon-ok')
+                                .addClass('glyphicon-remove');
+                            tel.val("");
+                            tel.attr('placeholder', '该手机号码已注册');
+                            realname.parent().removeClass('has-error').addClass
+                            ('has-success');
+                            realname.siblings('span').removeClass
+                            ('glyphicon-remove').addClass('glyphicon-ok');
+                            return;
+                        }
+                    })
+                } else {
+                    if (!is_realname_valid(realname.val())) {
+                        realname.parent().removeClass('has-success').addClass('has-error');
+                        realname.siblings('span').removeClass('glyphicon-ok').addClass('glyphicon-remove');
+                        realname.val("");
+                        realname.attr('placeholder', '真实姓名不能为空');
+                    } else {
+                        realname.parent().removeClass('has-error').addClass('has-success');
+                        realname.siblings('span').removeClass('glyphicon-remove').addClass('glyphicon-ok');
+                    }
+                    if (!is_tel_valid(tel.val())) {
+                        tel.parent().removeClass('has-success').addClass('has-error');
+                        tel.siblings('span').removeClass('glyphicon-ok').addClass('glyphicon-remove');
+                        tel.val("");
+                        tel.attr('placeholder', '联系方式格式不正确');
+                    } else {
+                        tel.parent().removeClass('has-error').addClass('has-success');
+                        tel.siblings('span').removeClass('glyphicon-remove').addClass('glyphicon-ok');
+                    }
+                }
+            });
+        });
+    </script>
+{% endblock %}

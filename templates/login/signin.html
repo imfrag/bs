@@ -1,46 +1,106 @@
 {% extends 'login/base.html' %}
-
 {% block sign_in_or_up %}
     <div class="row">
         <div class="col-lg-12 div-form">
-            <form method="post"
-                  action="{% block signin_action %}{% endblock %}">
-                {% csrf_token %}
-                <div class="form-group">
+            <form method="post" action="
+                    {% block signin_action %}{% endblock %}"> {% csrf_token %}
+                <div class="form-group has-feedback">
                     <label class="sr-only" for="username">
-                        {% block label_name %}{% endblock %}
-                    </label>
-                    <input type="text" class="form-control"
-                           name="username"
-                           id="username"
-                           placeholder="{% block placeholder_username %}{% endblock %}">
+                        {% block label_name %}{% endblock %} </label>
+                    <input type="text" class="form-control" name="username" id="username" placeholder="{% block placeholder_username %}{% endblock %}">
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                 </div>
-                <div class="form-group">
-                    <label class="sr-only"
-                           for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control"
-                           name="password"
-                           id="input_password"
-                           placeholder="Password">
-                </div>
-                <input type="hidden" name="auth" value="1">
-                <button type="submit"
-                        class="btn btn-primary btn-block">
-                    Submit
-                </button>
-            </form>
+                <div class="form-group has-feedback">
+                    <label class="sr-only" for="exampleInputPassword1">Password</label>
+                    <input type="password" class="form-control" name="password"
+                           id="password" placeholder="密码"> <span class="glyphicon
+                        form-control-feedback" aria-hidden="true"></span></div>
+                <input type="hidden" name="auth" value="1"></form>
+            <button id="submit" type="submit" class="btn btn-primary
+            btn-block">登录</button>
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-6">
-            <a href="#">Forget Password?</a>
-        </div>
-        {% block only_user_login %}
-
-        {% endblock %}
+        <div class="col-lg-6"><a href="#">忘记密码?</a></div>
+        {% block only_user_login %} {% endblock %}
     </div>
-    {% block staff_admin %}
-
-    {% endblock %}
+    {% block staff_admin %}{% endblock %}
 {% endblock %}
-
+{% block script %}
+    <script>
+        $(document).ready(function () {
+            $('.content-form').css('height', $(window).height());
+            $('#submit').click(function () {
+                var username = $('#username');
+                var password = $('#password');
+                if (username.val() && password.val()) {
+                    path_name = window.location.pathname;
+                    level = parseInt(path_name.split('/')[3], 10);
+                    var get_url;
+                    if (level == 1) {
+                        get_url = "{% url 'signin' 1 %}";
+                    } else if (level == 2) {
+                        get_url = "{% url 'signin' 2 %}";
+                    } else if (level == 3) {
+                        get_url = "{% url 'signin' 3 %}";
+                    }
+                    var params = '?username=' + username.val() + '&password=' + password.val();
+                    $.get(get_url + params, function (response, status_code) {
+                        var username_msg = response.username_msg;
+                        var password_msg = response.password_msg;
+                        var code = response.code;
+                        if (code == 2) {
+                            if (username_msg) {
+                                username.parent().removeClass('has-success').addClass('has-error');
+                                username.siblings('span').removeClass('glyphicon-ok').addClass('glyphicon-remove');
+                                username.val("");
+                                username.attr('placeholder', username_msg)
+                            } else {
+                                username.parent().removeClass('has-error').addClass('has-success');
+                                username.siblings('span').removeClass('glyphicon-remove').addClass('glyphicon-ok');
+                            }
+                            if (password_msg) {
+                                password.parent().removeClass('has-success').addClass('has-error');
+                                password.siblings('span').removeClass('glyphicon-ok').addClass('glyphicon-remove');
+                                password.val("");
+                                password.attr('placeholder', password_msg);
+                            } else {
+                                password.parent().removeClass('has-error').addClass('has-success');
+                                password.siblings('span').removeClass('glyphicon-remove').addClass('glyphicon-ok');
+                            }
+                            return;
+                        } else if (code == 1) {
+                            var url;
+                            if (level == 1) {
+                                url = "{% url 'signin' 1 %}";
+                            } else if (level == 2) {
+                                url = "{% url 'signin' 2 %}";
+                            } else if (level == 3) {
+                                url = "{% url 'signin' 3 %}";
+                            }
+                            $('form').attr('action', url).attr('method', 'POST');
+                            $('form').submit()
+                        }
+                    })
+                    return;
+                }
+                if (!username.val()) {
+                    username.parent().removeClass('has-success').addClass('has-error');
+                    username.siblings('span').removeClass('glyphicon-ok').addClass('glyphicon-remove');
+                    username.attr('placeholder', '该用户名不存在');
+                } else {
+                    username.parent().removeClass('has-error').addClass('has-success');
+                    username.siblings('span').removeClass('glyphicon-remove').addClass('glyphicon-ok');
+                }
+                if (!password.val()) {
+                    password.parent().removeClass('has-success').addClass('has-error');
+                    password.siblings('span').removeClass('glyphicon-ok').addClass('glyphicon-remove');
+                    password.attr('placeholder', '密码与用户名不匹配');
+                } else {
+                    password.parent().removeClass('has-error').addClass('has-success');
+                    password.siblings('span').removeClass('glyphicon-remove').addClass('glyphicon-ok');
+                }
+                return;
+            })
+        })
+    </script> {% endblock %}

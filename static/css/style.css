@@ -1,52 +1,257 @@
+/*
+返回顶端
+ */
+
+#top {
+    display: block;
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    background-color: #999caa;
+    color: white;
+    transition: 0.5s;
+}
+#top:hover {
+    background-color: #333;
+    opacity: 1;
+}
+
+/*
+顶端导航栏
+*/
+
 .header-container {
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 99999;
     height: 94px;
     width: 100%;
-    /*background-color: #3c3c3c;*/
+    /*background-color: white;*/
     border-bottom: gray solid 1px;
+    transition: 1s;
+}
+.header-container .header-menu ul {
+    list-style: none;
+}
+.header-container .header-menu ul li {
+    display: inline-block;
+    padding: 0 20px;
+    font-size: 17px;
+}
+.header-container a {
+    display: inline-block;
+    color: white;
+}
+.header-container a:hover {
+    color: white;
+}
+.header-container a:visited {
+    color: white;
+}
+.header-navbar {
+    position: relative;
+    width: 60%;
+    margin: 0 auto;
+}
+.header-navbar .header-logo {
+    float: left;
+    width: 170px;
+    line-height: 94px;
+}
+.header-navbar .header-menu {
+    float: right;
+    line-height: 94px;
+}
+
+/*
+主页巨幕
+ */
+
+.jumbotron {
+    position: relative;
+    padding-top: 200px;
+    background-image: url("../image/1920x1080/01.jpg");
+    background-size: cover;
+}
+.jumbotron .jumbotron-centered {
+    position: absolute;
+    top: 30%;
+    left: 25%;
+    width: 50%;
+}
+.jumbotron .jumbotron-centered h1 {
+    color: white;
+}
+.jumbotron .jumbotron-centered p {
+    color: #a6a7aa;
+}
+
+/*
+主页登录注册
+ */
+
+.log {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding-right: 100px;
+    line-height: 94px;
+}
+.log a {
+    color: black;
+}
+.log a:hover {
+    color: black;
+}
+.log a:visited {
+    color: black;
+}
+.log .btn-group .dropdown-menu {
+    left: -295%;
+    padding-top: 15px;
+}
+.log .btn-group .dropdown-menu li {
+    height: 40px;
+    line-height: 40px;
+    font-size: 17px;
+}
+.log .btn-group .dropdown-menu li {
+    line-height: 40px;
+}
+.container {
+    margin-top: 40px;
+    margin-bottom: 15px;
+    padding: 100px 0;
+}
+
+/*
+房屋栏
+ */
+
+.house {
+    margin-bottom: 50px;
+    padding: 20px 20px 30px 20px;
+}
+
+.house:hover {
+    box-shadow: 0 2px 2px #737373;
+}
+
+.house * {
+    color: #515769;
+}
+.house p {
+    color: #a6a7aa;
+}
+.house .row {
+    margin-bottom: 40px;
+}
+
+.house .house-img {
+    margin-bottom: 20px;
+}
+
+.house .house-img img {
+    width: 360px;
+    margin-bottom: 20px;
+}
+.house h4, p {
+    margin-bottom: 10px;
+}
+.house a {
+    color: #2f6f9f;
+}
+
+/*
+房屋页面
+ */
+.house-content {
+    padding-top: 98px;
+}
+
+.house-detail {
+    width: 65%;
+    margin: 0 auto;
+    padding: 165px 200px;
+}
+
+.house-detail * {
+    color: #515769;
+}
+
+.house-detail p {
+    color: #a6a7aa;
+}
+
+.house-detail .house-img-detail {
+    float: left;
+}
+
+.house-detail .house-text-detail {
+    padding-left: 500px;
+}
+
+/*
+主页底部
+ */
+
+.footer-container {
+    background-image: url('../image/1920x1080/03.jpg');
+    background-size: cover;
+    font-size: 16px;
+    color: #cbd3e1;
+}
+.footer-container .wrapper {
+    width: 60%;
+    margin: 0 auto;
+    padding: 90px 25px;
+}
+.footer-container ul {
+    display: block;
+    list-style: none;
+}
+.footer-container ul li {
+    display: block;
+    margin-bottom: 25px;
+}
+.footer-container ul li a {
+    color: #cbd3e1;
 }
 
 /*
     登录界面
  */
+
 .content-form {
     padding-top: 200px;
     background-image: url("../image/1920x1080/01.jpg");
     background-size: cover;
 }
-
 .content-background {
     width: 400px;
     margin: 0 auto;
     background-color: white;
     border-radius: 15px;
 }
-
 .row:nth-child(1) {
     margin-top: 40px;
     margin-bottom: 40px;
 }
-
 .row:nth-child(1) img {
     display: block;
     margin: 0 auto;
 }
-
 form input {
     margin-bottom: 20px;
 }
-
 .row:nth-child(3) {
     margin-top: 30px;
     margin-bottom: 30px;
 }
-
 .row:nth-child(3) div:nth-child(2) {
     text-align: right;
 }
-
 .redirect-icon {
     width: 370px;
     margin-bottom: 25px;
@@ -54,12 +259,12 @@ form input {
     text-align: center;
     border-top: gray solid 1px;
 }
-
 .redirect-icon a {
     margin: 0 5px;
 }
 
 /* global */
+
 a:hover {
     text-decoration: none;
 }

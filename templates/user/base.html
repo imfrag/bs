@@ -1,99 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>
-        {{ username }}
-    </title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/normalize.css' %}"/>
+    <title> {{ request.session.user.username }} </title> {% load static %}
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}" />
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/bootstrap-theme.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/style-user.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style-user.css' %}"> </head>
 
-</head>
 <body>
-<div class="sidebar">
-    <div class="backToIndex">
-        <div class="center">
-            <a href="{% url 'index' %}">
+    <div class="sidebar">
+        <div class="backToIndex">
+            <div class="center"> <a href="{% url 'index' %}">
                 <img src="{% static 'image/clients/03.png' %}" alt="">
-            </a>
+            </a> </div>
         </div>
-    </div>
-    <div class="mainMenu">
-        <ul id="menu" class="menu">
-            <li data-type="profile" class="menu-item">
-                <a data-type="profile" href="#">
-                    <span data-type="profile" class="glyphicon glyphicon-asterisk"></span>
-                    <span data-type="profile" class="item-title">个人信息</span>
-                </a>
-            </li>
-            <li data-type="privacy" class="menu-item">
-                <a data-type="privacy" href="#">
-                    <span data-type="privacy" class="glyphicon glyphicon-lock"></span>
-                    <span data-type="privacy" class="item-title">安全隐私</span>
-                </a>
-            </li>
-            <li data-type="contact" class="menu-item">
-                <a data-type="contact" href="#">
-                    <span data-type="contact" class="glyphicon glyphicon-comment"></span>
-                    <span data-type="contact" class="item-title">联系物业</span>
-                </a>
-            </li>
-
-            {% if True %}
-                <li data-type="houses" class="menu-item personal">
-                    <a data-type="houses" href="#">
-                        <span data-type="houses" class="glyphicon glyphicon-home"></span>
-                        <span data-type="houses" class="item-title">房产信息</span>
-                    </a>
-                </li>
-                <li data-type="repair" class="menu-item">
-                    <a data-type="repair" href="#">
-                        <span data-type="repair" class="glyphicon glyphicon-wrench"></span>
-                        <span data-type="repair" class="item-title">保修维护</span>
-                    </a>
-                </li>
-                <li data-type="bill" class="menu-item">
-                    <a data-type="bill" href="#">
-                        <span data-type="bill" class="glyphicon glyphicon-yen"></span>
-                        <span data-type="bill" class="item-title">账单费用</span>
-                        <span data-type="bill" class="badge">01</span>
-                    </a>
-                </li>
-
-            {% endif %}
-        </ul>
-    </div>
-    <div class="backToTop">
-        <a href="#">
+        <div class="mainMenu">
+            <ul id="menu" class="menu">
+                <li data-type="" class="menu-item"> <a href="{% url 'profile' request.session.user.username %}">
+                        <span data-type="" class="glyphicon glyphicon-asterisk"></span>
+                        <span data-type="" class="item-title">个人信息</span>
+                    </a> </li>
+                <li class="menu-item"> <a href="{% url 'privacy' request.session.user.username %}">
+                        <span class="glyphicon glyphicon-lock"></span>
+                        <span class="item-title">安全隐私</span>
+                    </a> </li>
+                <li data-type="contact" class="menu-item"> <a href="{% url 'contact' request.session.user.username %}">
+                    <span class="glyphicon glyphicon-comment"></span>
+                    <span class="item-title">联系物业</span>
+                </a> </li> {% if request.session.user.level %}
+                <li class="menu-item personal"> <a href="{% url 'billboard' request.session.user.username %}">
+                        <span class="glyphicon glyphicon-home"></span>
+                        <span class="item-title">公告板</span>
+                    </a> </li>
+                <li class="menu-item"> <a href="{% url 'repair' request.session.user.username %}">
+                        <span class="glyphicon glyphicon-wrench"></span>
+                        <span class="item-title">报修维护</span>
+                    </a> </li>
+                <li class="menu-item"> <a href="#">
+                        <span class="glyphicon glyphicon-yen"></span>
+                        <span class="item-title">账单费用</span>
+                        <span class="badge">01</span>
+                    </a> </li> {% endif %} </ul>
+        </div>
+        <div class="backToTop"> <a href="#">
             <span class="glyphicon glyphicon-menu-up"></span>
             BACK TO TOP
-        </a>
+        </a> </div>
     </div>
-</div>
+    <div class="main">
+        <div id="content">
+{#            <!-- {% if data %} {{ data }} {% endif %}  -->#}
+            {% block content %} {% endblock %}
+        </div>
+    </div>
+    <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script>
+    // $(document).ready(function () {
+    //     $('#menu').children().click(function (e) {
+    //         data_type = $(e.target).attr('data-type')
+    //         $.get(data_type, function (response) {
+    //             data = response.data
+    //             $('#content').html(data)
+    //         });
+    //     });
+    // });
+    </script> {% block script %}{% endblock %} </body>
 
-<div class="main">
-    <div id="content">
-        {% if data %}
-            {{ data }}
-        {% endif %}
-    </div>
-</div>
-<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
-<script src="{% static 'js/bootstrap.min.js' %}"></script>
-<script>
-    $(document).ready(function () {
-        $('#menu').children().click(function (e) {
-            data_type = $(e.target).attr('data-type')
-            $.get('{{ username }}/' + data_type, function (response) {
-                data = response.data
-                $('#content').html(data)
-            });
-        });
-    });
-</script>
-{% block script %}{% endblock %}
-</body>
 </html>

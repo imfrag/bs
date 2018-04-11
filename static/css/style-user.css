@@ -2,25 +2,20 @@
     font-family: 'SimSun-ExtB';
     text-decoration: none;
 }
-
 *:visited {
     text-decoration: none;
 }
-
 *:active {
     text-decoration: none;
 }
-
 a {
-    color: #9d9d9d;
+    color: gainsboro;
     font-size: 25px;
 }
-
 a:hover {
     text-decoration: none;
     color: gainsboro;
 }
-
 a:visited {
     text-decoration: none;
     color: gainsboro;
@@ -29,6 +24,7 @@ a:visited {
 /*
     SideBar
  */
+
 .sidebar {
     position: fixed;
     top: 0;
@@ -38,38 +34,32 @@ a:visited {
     overflow-x: hidden;
     background-color: #1B2021;
 }
-
 .sidebar .backToIndex {
     width: 100%;
     height: 100px;
     border-bottom: #5e5e5e solid thin;
     text-align: center;
 }
-
 .sidebar .backToIndex .center {
     display: inline-block;
     padding-top: 10px;
     margin: 0 auto;
 }
-
 .sidebar .mainMenu {
     position: absolute;
     left: 0;
     top: 20%;
     width: 100%;
 }
-
 .menu {
     list-style-type: none;
     padding-left: 0;
 }
-
 .menu-item {
     margin-bottom: 10px;
     line-height: 30px;
     vertical-align: middle;
 }
-
 .menu-item:before {
     content: "";
     display: block;
@@ -81,7 +71,6 @@ a:visited {
     visibility: hidden;
     z-index: 9999;
 }
-
 .menu-item a {
     display: inline-block;
     width: 100%;
@@ -90,31 +79,25 @@ a:visited {
     padding-left: 30px;
     vertical-align: center;
 }
-
 .menu-item a:hover {
     color: white;
     border-top: #5e5e5e solid thin;
     border-bottom: #5e5e5e solid thin;
     background-color: #262626;
 }
-
 .menu-item span:nth-child(1) {
     margin-right: 8px;
 }
-
 .item-title {
     letter-spacing: 3px;
 }
-
 .menu-item .label {
     line-height: 15px;
     font-size: 15px;
 }
-
 .personal {
     margin-top: 30px;
 }
-
 .backToTop {
     position: absolute;
     left: 0;
@@ -123,7 +106,6 @@ a:visited {
     height: 80px;
     border-top: #5e5e5e solid thin;
 }
-
 .backToTop a {
     padding-left: 20px;
     font-size: 25px;
@@ -133,45 +115,141 @@ a:visited {
 /*
     main
  */
+
 .main {
     padding-top: 100px;
     padding-left: 350px;
 }
-
 #content {
     font-size: 20px;
 }
-
 #content .form-group {
     padding-left: 20px;
 }
-
 .services {
     padding-left: 50px;
+    margin-bottom: 50px;
 }
-
 .services h3 small {
     color: #bfc1c7;
     padding-left: 20px;
 }
-
 .services ul {
     margin-top: 15px;
     list-style: none;
     padding-left: 0;
     color: #81848f;
 }
-
 .services ul li {
     margin-top: 5px;
 }
-
 .services ul li span {
     margin-right: 10px;
     color: #337ab7;
 }
-
 .services p {
     margin-top: 15px;
     color: #81848f;
+}
+
+/*
+    user/privacy
+ */
+
+.privacy {
+    margin-top: 100px;
+}
+.privacy .wrapper {
+    margin: 0 auto;
+    width: 200px;
+}
+.privacy img {
+    margin-bottom: 30px;
+}
+.blur-block {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 99999;
+    background-color: black;
+    opacity: 0.75;
+}
+.c-form {
+    position: absolute;
+    left: 30%;
+    top: 25%;
+    z-index: 100000;
+    width: 650px;
+    height: 400px;
+    padding-top: 40px;
+    background-color: white;
+    border: 0 solid;
+    border-radius: 15px;
+}
+.c-form .tips {
+    padding-top: 55px;
+}
+.c-form p {
+    text-indent: 235px;
+}
+
+/*
+user/billboard
+ */
+
+.billboard-header {
+    padding: 25px 0 25px 50px;
+}
+.billboard-content {
+    padding-left: 60px;
+    padding-right: 150px;
+}
+.billboard-content .btn-link {
+    font-size: 14px;
+    color: #337ab7
+}
+.billboard-content .btn-link:hover {
+    color: #337ab7;
+    text-decoration: none;
+}
+.billboard-content .btn-link:visited {
+    color: #337ab7;
+}
+.billboard-content .b-content {
+    width: 550px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.detail {
+    position: absolute;
+    left: 23%;
+    top: 25%;
+    z-index: 100000;
+    width: 945px;
+    height: 475px;
+    padding: 80px 80px 40px 40px;
+    background-color: white;
+}
+.detail .btn-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.detail .readonly {
+    background-color: white;
+}
+
+.submit-padding-left {
+    padding-left: 22px;
+}
+
+.repair-table {
+    padding-top: 100px;
+    padding-right: 150px;
+}
+
+.wrong-msg {
+    font-size: 14px;
 }

@@ -1,0 +1,17 @@
+{% extends 'house/base.html' %}
+
+{% load static %}
+{% block detail %}
+    <div class="house-detail">
+        <div class="house-img-detail">
+            <img src="{% static 'upload' %}/{{ house.image_description.url }}" alt="">
+        </div>
+        <div class="house-text-detail">
+            <h1>{{ house.text_description }}</h1>
+            <p>房屋大小：{{ house.size }}</p>
+            <p>房屋位置：{{ house.location }}</p>
+            <p>描述：【采光/通风】 1、多阳台： 增加自然采光，生活阳台与观景阳台相分离，南阳台休闲，北阳台洗晒及储物，提升户型舒适度与便利性 2、南北通透： 室内空气自然流通，利于异味排除，保持室内干燥 3、客厅、卧室采光佳： 客厅配有朝南阳台，A、D卧室配有朝南飘窗，自然采光面较大 【布局/空间利用】 1、卧室均带飘窗： 卧室A、B、C、D均带有飘窗，增加利用空间，提升居住体验 2、多个卧室套房： A、B、C卧室均配备独立卫浴,淋浴方便且更具私密性；且A卧室配备衣帽间，增加衣物存储空间，更衣便利 3、独立的电梯厅： 增加入户仪式感，同时带有玄关，可拓展入户收纳空间 4、卫生间充裕合理： 同时方便主、客卫生间使用 【缺点】 1、卫生间位置不合理： 卫生间均距离厨房较远，热水管道距离长，沐浴热水等待时间较久 2、卫生间无对外开窗： 卫生间D的异味、湿气难以自然散出
+</p>
+        </div>
+    </div>
+{% endblock %}

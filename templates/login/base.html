@@ -1,31 +1,17 @@
-{% extends 'index.html' %}
-{% load static %}
-{% block title %}
-    Login Application
-{% endblock %}
-
-{% block content %}
-    <div class="content-form">
-        <div class="content-background">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12 center">
-                        <img src="{% static 'image/clients/03.png' %}"
-                             alt="">
-                    </div>
-                </div>
-                {% block sign_in_or_up %}
-
-                {% endblock %}
-            </div>
-        </div>
+{% extends 'index.html' %} {% load static %} {% block title %} Login Application {% endblock %} {% block content %}
+<div class="content-form">
+    <div class="content-background">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 center"> <img src="{% static 'image/clients/03.png' %}" alt=""> </div>
+            </div> {% block sign_in_or_up %} {% endblock %} </div>
     </div>
-{% endblock %}
-
-{% block script %}
-    <script>
-        $(document).ready(function () {
-            $('.content-form').css('height', $(window).height());
-        })
-    </script>
-{% endblock %}
+</div> {% endblock %} {% block script %}
+<script>
+$(document).ready(function() {
+    $('.content-form').css('height', $(window).height());
+    $(window).resize(function() {
+        $('.content-form').width($(window).width()).height($(window).height());
+    });
+})
+</script> {% endblock %}

@@ -1,0 +1,101 @@
+{% extends 'user/base.html' %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <form class="form-horizontal repair" method="POST" action="
+{% url 'repair' request.session.user.username %}">
+                {% csrf_token %}
+                <div class="form-group has-feedback">
+                    <label for="description" class="col-sm-2
+                    control-label">报修原因</label>
+                    <div class="col-sm-5">
+                        <input type="email" name="description" class="form-control"
+                               id="description" placeholder="报修描述">
+                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="house_id" class="col-sm-2
+                    control-label">报修房屋</label>
+                    <div class="col-sm-3">
+                        <select id="house_id" name="house_id"
+                                class="form-control">
+                            <option value="0" selected>选择报修房屋</option>
+                            {% for i in houses %}
+                                <option value="{{ i.house_id }}">{{ i.location }}</option>
+                            {% endfor %}
+                        </select>
+                        <p class="form-control-static text-danger wrong-msg">*
+                            请选择报修房屋</p>
+                    </div>
+                </div>
+                {#                <input type="hidden" name="publisher" value="{{ request.session.user.username }}">#}
+            </form>
+            <div class="col-sm-offset-2 col-sm-10 submit-padding-left">
+                <button type="button" class="btn btn-default">提交
+                </button>
+            </div>
+        </div>
+        <div class="row repair-table">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <tr>
+                        <th>序号</th>
+                        <th>报修房屋</th>
+                        <th>报修原因</th>
+                        <th>发布时间</th>
+                        <th>修理员</th>
+                        <th>修理时间</th>
+                        <th></th>
+                    </tr>
+                    {% for r,s,l in rs %}
+                        <tr class="{% if s %}info{% else %}danger{% endif %}">
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ l }}</td>
+                            <td>
+                                {{ r.repair_description }}
+                            </td>
+                            <td>{{ r.publish_time|date:"Y-m-d D H:i" }}</td>
+                            <td>{{ s }}</td>
+                            <td>{{ r.repair_time|date:"Y-m-d D H:i" }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script>
+        $(document).ready(function () {
+            $('.wrong-msg').hide();
+            $('button[type="button"]').click(function () {
+                var description = $('#description');
+                var house_id = $('#house_id').find('option:selected');
+                if (description.val() && house_id.val() != 0) {
+                    alert('报修成功');
+                    $('form.repair').submit();
+                }
+                if (!description.val()) {
+                    description.parent().removeClass('has-success').addClass('has-error');
+                    description.siblings('span').removeClass('glyphicon-ok').addClass
+                    ('glyphicon-remove');
+                    description.val("");
+                    description.attr('placeholder', '报修原因不能为空');
+                } else {
+                    description.parent().removeClass('has-error').addClass('has-success');
+                    description.siblings('span').removeClass('glyphicon-remove')
+                        .addClass('glyphicon-ok');
+                }
+
+                if (house_id.val() == 0) {
+                    $('.wrong-msg').show();
+                } else {
+                    $('.wrong-msg').hide();
+                }
+
+            })
+        })
+    </script>
+{% endblock %}

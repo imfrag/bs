@@ -1,0 +1,82 @@
+{% extends 'index.html' %}
+{% block title %}House{% endblock %}
+{% load static %}
+{% block content %}
+    <div class="house-content">
+        {% block detail %}
+            <div class="container">
+            <div class="row">
+                <div class="col-sm-4 house">
+                    <div class="house-img">
+                        <img src="{% static 'image/970x647/01.jpg' %}" alt="">
+                    </div>
+                    <h4>House Summary</h4>
+                    <p>House intro</p> <a href="#">Read More</a>
+                </div>
+                <div class="col-sm-4 house">
+                    <div class="house-img">
+                        <img src="{% static 'image/970x647/01.jpg' %}" alt="">
+                    </div>
+                    <h4>House Summary</h4>
+                    <p>House intro</p> <a href="#">Read More</a>
+                </div>
+                <div class="col-sm-4 house">
+                    <div class="house-img">
+                        <img src="{% static 'image/970x647/01.jpg' %}" alt="">
+                    </div>
+                    <h4>House Summary</h4>
+                    <p>House intro</p> <a href="#">Read More</a>
+                </div>
+                <div class="col-sm-4 house">
+                    <div class="house-img">
+                        <img src="{% static 'image/970x647/01.jpg' %}" alt="">
+                    </div>
+                    <h4>House Summary</h4>
+                    <p>House intro</p> <a href="#">Read More</a>
+                </div>
+                <div class="col-sm-4 house">
+                    <div class="house-img">
+                        <img src="{% static 'image/970x647/01.jpg' %}" alt="">
+                    </div>
+                    <h4>House Summary</h4>
+                    <p>House intro</p> <a href="#">Read More</a>
+                </div>
+                <div class="col-sm-4 house">
+                    <div class="house-img">
+                        <img src="{% static 'image/970x647/01.jpg' %}" alt="">
+                    </div>
+                    <h4>House Summary</h4>
+                    <p>House intro</p> <a href="#">Read More</a>
+                </div>
+                {% for house in houses %}
+                    <div class="col-sm-4 house">
+                        <div class="house-img">
+                            <img src="{% static 'upload' %}/{{ house.image_description.url }}" alt="">
+                        </div>
+                        <h4>{{ house.text_description }}</h4>
+                        <p>House intro</p> <a href="{% url 'house_detail' house.house_id %}">Read
+                        More</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endblock %}
+    </div>
+{% endblock %}
+{% block script %}
+    <script>
+        $(document).ready(function () {
+            $('.header-menu').find('a').css('color', 'black');
+            $('.log').find('a.btn').css('background-color', '#333').css('color',
+                'white');
+            $(window).scroll(function () {
+                if (window.scrollY == 0) {
+                    $('.header-container').css('background-color', '').css('border-bottom-width', '1px');
+                } else {
+                    $('.header-container').css('background-color', 'white')
+                        .css('border-bottom-width', '0');
+                }
+            });
+        });
+    </script>
+{% endblock %}

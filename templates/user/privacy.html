@@ -1,0 +1,352 @@
+{% extends 'user/base.html' %} {% block content %}
+    <div class="container-fluid">
+        <div class="row privacy"> {% load static %}
+            <div class="col-lg-3">
+                <div class="wrapper">
+                    <img src="{% static 'image/icon/padlock.png' %}" alt="">
+                    <button id="cpwd" class="btn btn-default btn-block">修改密码</button>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="wrapper">
+                    <img src="{% static 'image/icon/chat-1.png' %}" alt="">
+                    <button id="cemail" class="btn btn-default btn-block">修改邮箱</button>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="wrapper">
+                    <img src="{% static 'image/icon/smartphone-1.png' %}" alt="">
+                    <button id="cphone" class="btn btn-default btn-block">更换手机</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="blur-block"></div>
+    <div id="cpwd-form" class="container-fluid c-form">
+        <form class="form-horizontal" method="POST" action="{% url 'privacy' request.session.user.username %}"> {% csrf_token %}
+            <div class="form-group has-feedback">
+                <label for="inputUsername3" class="col-sm-4
+            control-label">旧密码：</label>
+                <div class="col-sm-5">
+                    <input type="password" class="form-control" name="oldpassword" id="oldpassword" placeholder="旧密码">
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                </div>
+            </div>
+            <div class="form-group has-feedback">
+                <label for="tel" class="col-sm-4 control-label">新密码：</label>
+                <div class="col-sm-5">
+                    <input type="password" class="form-control" name="newpassword" id="newpassword" placeholder="新密码">
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                </div>
+            </div>
+            <div class="form-group has-feedback">
+                <label for="tel" class="col-sm-4 control-label">重复新密码：</label>
+                <div class="col-sm-5">
+                    <input type="password" class="form-control" name="rnewpassword" id="rnewpassword" placeholder="重复新密码">
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                </div>
+            </div>
+            <input type="hidden" class="form-control" name="hidetype" value="cpwd">
+        </form>
+        <div class="form-group">
+            <div class="col-sm-offset-4 col-sm-10">
+                <button id="cpwd-save" type="submit" class="btn btn-primary">保存修改</button>
+                <button id="cpwd-cancel" type="submit" class="btn btn-primary">取消</button>
+            </div>
+        </div>
+        <div class="tips">
+            <p>
+                <mark>
+                    <small>* 新密码不能与旧密码相同</small>
+                </mark>
+            </p>
+            <p>
+                <mark>
+                    <small>* 新密码至少6位</small>
+                </mark>
+            </p>
+        </div>
+    </div>
+    <div id="cemail-form" class="container-fluid c-form">
+        <form class="form-horizontal" method="POST" action="{% url 'privacy' request.session.user.username %}"> {% csrf_token %}
+            <div class="form-group has-feedback">
+                <label for="inputUsername3" class="col-sm-4
+            control-label">密码验证：</label>
+                <div class="col-sm-5">
+                    <input type="password" class="form-control" name="password" id="password" placeholder="输入密码">
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                </div>
+            </div>
+            <div class="form-group has-feedback">
+                <label for="tel" class="col-sm-4 control-label">新邮箱：</label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" name="email" id="email" placeholder="新邮箱">
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                </div>
+            </div>
+            <input type="hidden" class="form-control" name="hidetype" value="cemail">
+        </form>
+        <div class="form-group">
+            <div class="col-sm-offset-4 col-sm-10">
+                <button id="cemail-save" type="submit" class="btn btn-primary">保存修改</button>
+                <button id="cemail-cancel" type="submit" class="btn btn-primary">取消</button>
+            </div>
+        </div>
+        <div class="tips">
+            <p>
+                <mark>
+                    <small>* 邮箱格式形如example@example.com</small>
+                </mark>
+            </p>
+            <p>
+                <mark>
+                    <small>* 新邮箱不能与旧邮箱相同</small>
+                </mark>
+            </p>
+        </div>
+    </div>
+    <div id="cphone-form" class="container-fluid c-form">
+        <form class="form-horizontal" method="POST" action="{% url 'privacy' request.session.user.username %}"> {% csrf_token %}
+            <div class="form-group has-feedback">
+                <label for="inputUsername3" class="col-sm-4
+            control-label">密码验证：</label>
+                <div class="col-sm-5">
+                    <input type="password" class="form-control" name="password" id="ppassword" placeholder="输入密码">
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                </div>
+            </div>
+            <div class="form-group has-feedback">
+                <label for="tel" class="col-sm-4 control-label">新手机：</label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" name="phone" id="phone" placeholder="新手机">
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                </div>
+            </div>
+            <input type="hidden" class="form-control" name="hidetype" value="cphone">
+        </form>
+        <div class="form-group">
+            <div class="col-sm-offset-4 col-sm-10">
+                <button id="cphone-save" type="submit" class="btn btn-primary">保存修改</button>
+                <button id="cphone-cancel" type="submit" class="btn btn-primary">取消</button>
+            </div>
+        </div>
+        <div class="tips">
+            <p>
+                <mark>
+                    <small>* 手机号码格式形如150****1802</small>
+                </mark>
+            </p>
+            <p>
+                <mark>
+                    <small>* 新手机不能与旧手机相同</small>
+                </mark>
+            </p>
+        </div>
+    </div> {% endblock %} {% block script %}
+    <script>
+        $(document).ready(function () {
+            function is_newpassword_valid(newpassword, oldpassword) {
+                return newpassword.length >= 6 && newpassword != oldpassword;
+            }
+
+            function is_rnewpassword_valid(rnewpassword, newpassword) {
+                return newpassword.length >= 6 && rnewpassword == newpassword;
+            }
+
+            function is_email_valid(email) {
+                var re = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+                return re.test(email);
+            }
+
+            function is_phone_valid(phone) {
+                return phone.length == 11;
+            }
+
+            $('.c-form').hide();
+            $('#cpwd').click(function () {
+                $('.blur-block').css('height', $(window).height()).css('width', $(window).width()).show();
+                $('#cpwd-form').show();
+            });
+            $('#cemail').click(function () {
+                $('.blur-block').css('height', $(window).height()).css('width', $(window).width()).show();
+                $('#cemail-form').show();
+            });
+            $('#cphone').click(function () {
+                $('.blur-block').css('height', $(window).height()).css('width', $(window).width()).show();
+                $('#cphone-form').show();
+            });
+            $('#cpwd-cancel').click(function () {
+                $('.blur-block').hide();
+                $('#cpwd-form').hide();
+            });
+            $('#cemail-cancel').click(function () {
+                $('.blur-block').hide();
+                $('#cemail-form').hide();
+            });
+            $('#cphone-cancel').click(function () {
+                $('.blur-block').hide();
+                $('#cphone-form').hide();
+            });
+            $('#cpwd-save').click(function () {
+                oldpassword = $('#oldpassword');
+                newpassword = $('#newpassword');
+                rnewpassword = $('#rnewpassword');
+                if (oldpassword.val() && is_newpassword_valid(newpassword.val(), oldpassword.val()) && is_rnewpassword_valid(rnewpassword.val(), newpassword.val())) {
+                    params = '?opwd=' + oldpassword.val();
+                    $.get("{% url 'privacy' request.session.user.username %}" + params, function (response) {
+                        if (response['STATUS']) {
+                            alert('重新登录');
+                            $('#cpwd-form').children('form').submit();
+                        } else {
+                            oldpassword.parent().removeClass('has-success').addClass('has-error');
+                            oldpassword.siblings('span').removeClass('glyphicon-ok').addClass('glyphicon-remove');
+                            oldpassword.val("");
+                            oldpassword.attr('placeholder', '旧密码不正确');
+                            newpassword.parent().removeClass('has-error').addClass('has-success');
+                            newpassword.siblings('span').removeClass('glyphicon-remove').addClass('glyphicon-ok');
+                            rnewpassword.parent().removeClass('has-error').addClass('has-success');
+                            rnewpassword.siblings('span').removeClass('glyphicon-remove').addClass('glyphicon-ok');
+                            return;
+                        }
+                    })
+                }
+                if (!oldpassword.val()) {
+                    oldpassword.parent().removeClass('has-success').addClass('has-error');
+                    oldpassword.siblings('span').removeClass('glyphicon-ok').addClass('glyphicon-remove');
+                    oldpassword.val("");
+                    oldpassword.attr('placeholder', '旧密码不能为空');
+                } else {
+                    oldpassword.parent().removeClass('has-error').addClass('has-success');
+                    oldpassword.siblings('span').removeClass('glyphicon-remove').addClass('glyphicon-ok');
+                }
+                if (!is_newpassword_valid(newpassword.val(), oldpassword.val())) {
+                    newpassword.parent().removeClass('has-success').addClass('has-error');
+                    newpassword.siblings('span').removeClass('glyphicon-ok').addClass('glyphicon-remove');
+                    newpassword.val("");
+                    newpassword.attr('placeholder', '新密码格式不正确');
+                } else {
+                    newpassword.parent().removeClass('has-error').addClass('has-success');
+                    newpassword.siblings('span').removeClass('glyphicon-remove').addClass('glyphicon-ok');
+                }
+                if (!rnewpassword.val()) {
+                    rnewpassword.parent().removeClass('has-success').addClass('has-error');
+                    rnewpassword.siblings('span').removeClass('glyphicon-ok').addClass('glyphicon-remove');
+                    rnewpassword.val("");
+                    rnewpassword.attr('placeholder', '确认密码不能为空');
+                } else if (!is_rnewpassword_valid(rnewpassword.val(), newpassword.val())) {
+                    rnewpassword.parent().removeClass('has-success').addClass('has-error');
+                    rnewpassword.siblings('span').removeClass('glyphicon-ok').addClass('glyphicon-remove');
+                    rnewpassword.val("");
+                    rnewpassword.attr('placeholder', '确认密码与新密码不一致');
+                } else {
+                    rnewpassword.parent().removeClass('has-error').addClass('has-success');
+                    rnewpassword.siblings('span').removeClass('glyphicon-remove').addClass('glyphicon-ok');
+                }
+            });
+            $('#cemail-save').click(function () {
+                password = $('#password');
+                email = $('#email');
+                if (password.val() && is_email_valid(email.val())) {
+                    params = '?opwd=' + password.val() + '&email=' + email.val();
+                    $.get("{% url 'privacy' request.session.user.username %}" + params, function (response) {
+                        if (response['STATUS'] == "sucess") {
+                            alert('邮箱已修改');
+                            $('#cemail-form').children('form').submit();
+                        } else if (response['STATUS'] == "password") {
+                            password.parent().removeClass('has-success').addClass('has-error');
+                            password.siblings('span').removeClass('glyphicon-ok').addClass('glyphicon-remove');
+                            password.val("");
+                            password.attr('placeholder', '验证密码不正确');
+                            email.parent().removeClass('has-error').addClass('has-success');
+                            email.siblings('span').removeClass('glyphicon-remove').addClass('glyphicon-ok');
+                            return;
+                        } else if (response['STATUS'] == "email") {
+                            email.parent().removeClass('has-success').addClass('has-error');
+                            email.siblings('span').removeClass('glyphicon-ok').addClass('glyphicon-remove');
+                            email.val("");
+                            email.attr('placeholder', '该邮箱已被注册');
+                            password.parent().removeClass('has-error').addClass('has-success');
+                            password.siblings('span').removeClass('glyphicon-remove').addClass('glyphicon-ok');
+                            return;
+                        }
+                    })
+                }
+                if (!password.val()) {
+                    password.parent().removeClass('has-success').addClass('has-error');
+                    password.siblings('span').removeClass('glyphicon-ok').addClass('glyphicon-remove');
+                    password.val("");
+                    password.attr('placeholder', '验证密码不能为空');
+                } else {
+                    password.parent().removeClass('has-error').addClass('has-success');
+                    password.siblings('span').removeClass('glyphicon-remove').addClass('glyphicon-ok');
+                }
+                if (!email.val()) {
+                    email.parent().removeClass('has-success').addClass('has-error');
+                    email.siblings('span').removeClass('glyphicon-ok').addClass('glyphicon-remove');
+                    email.val("");
+                    email.attr('placeholder', '新邮箱不能为空');
+                } else if (!is_email_valid(email.val())) {
+                    email.parent().removeClass('has-success').addClass('has-error');
+                    email.siblings('span').removeClass('glyphicon-ok').addClass('glyphicon-remove');
+                    email.val("");
+                    email.attr('placeholder', '新邮箱格式不正确');
+                } else {
+                    email.parent().removeClass('has-error').addClass('has-success');
+                    email.siblings('span').removeClass('glyphicon-remove').addClass('glyphicon-ok');
+                }
+            });
+            $('#cphone-save').click(function () {
+                password = $('#ppassword');
+                phone = $('#phone');
+                if (password.val() && is_phone_valid(phone.val())) {
+                    params = '?opwd=' + password.val() + '&phone=' + phone.val();
+                    $.get("{% url 'privacy' request.session.user.username %}" + params, function (response) {
+                        console.log(response['STATUS']);
+                        if (response['STATUS'] == "sucess") {
+                            alert('手机号码已修改');
+                            $('#cphone-form').children('form').submit();
+                        } else if (response['STATUS'] == "password") {
+                            password.parent().removeClass('has-success').addClass('has-error');
+                            password.siblings('span').removeClass('glyphicon-ok').addClass('glyphicon-remove');
+                            password.val("");
+                            password.attr('placeholder', '验证密码不正确');
+                            phone.parent().removeClass('has-error').addClass('has-success');
+                            phone.siblings('span').removeClass('glyphicon-remove').addClass('glyphicon-ok');
+                            return;
+                        } else if (response['STATUS'] == "phone") {
+                            phone.parent().removeClass('has-success').addClass('has-error');
+                            phone.siblings('span').removeClass('glyphicon-ok').addClass('glyphicon-remove');
+                            phone.val("");
+                            phone.attr('placeholder', '该手机号码已被注册');
+                            password.parent().removeClass('has-error').addClass('has-success');
+                            password.siblings('span').removeClass('glyphicon-remove').addClass('glyphicon-ok');
+                            return;
+                        }
+                    })
+                }
+                if (!password.val()) {
+                    password.parent().removeClass('has-success').addClass('has-error');
+                    password.siblings('span').removeClass('glyphicon-ok').addClass('glyphicon-remove');
+                    password.val("");
+                    password.attr('placeholder', '验证密码不能为空');
+                } else {
+                    password.parent().removeClass('has-error').addClass('has-success');
+                    password.siblings('span').removeClass('glyphicon-remove').addClass('glyphicon-ok');
+                }
+                if (!phone.val()) {
+                    phone.parent().removeClass('has-success').addClass('has-error');
+                    phone.siblings('span').removeClass('glyphicon-ok').addClass('glyphicon-remove');
+                    phone.val("");
+                    phone.attr('placeholder', '新手机不能为空');
+                } else if (!is_phone_valid(phone.val())) {
+                    phone.parent().removeClass('has-success').addClass('has-error');
+                    phone.siblings('span').removeClass('glyphicon-ok').addClass('glyphicon-remove');
+                    phone.val("");
+                    phone.attr('placeholder', '新手机格式不正确');
+                } else {
+                    phone.parent().removeClass('has-error').addClass('has-success');
+                    phone.siblings('span').removeClass('glyphicon-remove').addClass('glyphicon-ok');
+                }
+            });
+        })
+    </script> {% endblock %}
