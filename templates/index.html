@@ -2,134 +2,162 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %} 小区物业管理系统 {% endblock %}</title> {% load static %}
-    <link rel="stylesheet" href="{% static 'css/normalize.css' %}"/>
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <link rel="stylesh  eet" href="{% static 'css/bootstrap-theme.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    {% block style %}{% endblock %}
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>{% block title %} 小区物业管理系统 {% endblock %}</title> {% load static %}
+	<link rel="stylesheet" href="{% static 'css/normalize.css' %}"/>
+	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+	<link rel="stylesh  eet" href="{% static 'css/bootstrap-theme.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+	{% block style %}{% endblock %}
 </head>
 
 <body>
 <div class="header-container">
-    <div class="header-navbar">
-        <div class="header-logo clearfix"><a href="{% url 'index' %}">
-            <img src="{% static 'image/clients/04.png' %}" alt="">
-        </a></div>
-        <div class="header-menu clearfix">
-            <ul>
-                <li class="menu-item"><a href="{% url 'index' %}">主页</a></li>
-                <li class="menu-item"><a href="#">介绍</a></li>
-                <li class="menu-item"><a href="{% url 'house' %}">房屋</a></li>
-                <li class="menu-item"><a href="#">联系</a></li>
-                <li class="menu-item"><a href="#">帮助</a></li>
-                </a>
-            </ul>
-        </div>
-    </div>
-    <div class="log"> {% if request.session.user.username %}
-        <div class="btn-group">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="glyphicon glyphicon-list"></span></button>
-            <ul class="dropdown-menu user-menu">
-                <li>
-                    <a href="{% url 'profile' request.session.user.username %}">个人主页</a>
-                </li>
-                <li><a href="{% url 'logout' %}">注销</a></li>
-            </ul>
-        </div> {% else %}
-        <a class="btn btn-default" href="{% url 'signin' 1 %}">登录</a>
-        <a class="btn btn-default" href="{% url 'signup' %}">注册</a> {% endif %}
-    </div>
+	<div class="header-navbar">
+		<div class="header-logo clearfix"><a href="{% url 'index' %}">
+			<img src="{% static 'image/clients/04.png' %}" alt="">
+		</a></div>
+		<div class="header-menu clearfix">
+			<ul>
+				<li class="menu-item"><a href="{% url 'index' %}">主页</a></li>
+				<li class="menu-item"><a href="#">介绍</a></li>
+				<li class="menu-item"><a href="{% url 'house' %}">房屋</a></li>
+				<li class="menu-item"><a href="#">联系</a></li>
+				<li class="menu-item"><a href="#">帮助</a></li>
+				</a>
+			</ul>
+		</div>
+	</div>
+	<div class="log"> {% if request.session.user.username %}
+		<div class="btn-group">
+			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<span class="glyphicon glyphicon-list"></span></button>
+			<ul class="dropdown-menu user-menu">
+				<li>
+					<a href="{% url 'profile' request.session.user.username %}">个人主页</a>
+				</li>
+				<li><a href="{% url 'logout' %}">注销</a></li>
+			</ul>
+		</div> {% else %}
+		<a class="btn btn-default" href="{% url 'signin' 1 %}">登录</a>
+		<a class="btn btn-default" href="{% url 'signup' %}">注册</a> {% endif %}
+	</div>
 </div>
 {% block content %}
-    <div id="jumbotron" class="container-fluid jumbotron">
-        <div class="jumbotron-centered">
-            <h1>小区物业管理系统</h1>
-            <p>
-                <br>物业管理公司是小区专业管理的主体，全面负责公共设施维修等服务性工作。
-                <br>
-                <br>物业管理行业发展到现在，服务范围早已超出了清洁、绿化和安全巡逻的概念。
-                <br>
-                <br>如何利用高科技手段和计算机技术，让物业管理变得更加智能化，让物业服务效率变得更高。
-                <br>
-                <br>如何最大化满足业主、住户的需求，这已经成为整个物业行业急需解决的问题。 </p>
-        </div>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-6 house">
-                <h2>Latest Products</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipiscing elit sed tempor incididunt ut laboret dolore magna aliqua enim minim veniam exercitation</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-4 house">
-                <div class="house-img">
-                    <img src="{% static 'image/970x647/01.jpg' %}" alt=""></div>
-                <h4>House Summary</h4>
-                <p>House intro</p> <a href="#">Read More</a></div>
-            <div class="col-sm-4 house">
-                <div class="house-img">
-                    <img src="{% static 'image/970x647/01.jpg' %}" alt=""></div>
-                <h4>House Summary</h4>
-                <p>House intro</p> <a href="#">Read More</a></div>
-            <div class="col-sm-4 house">
-                <div class="house-img">
-                    <img src="{% static 'image/970x647/01.jpg' %}" alt=""></div>
-                <h4>House Summary</h4>
-                <p>House intro</p> <a href="#">Read More</a></div>
-        </div>
-    </div>
-    <div class="footer-container">
-        <div class="wrapper">
-            <div class="conatiner">
-                <div class="row">
-                    <div class="col-sm-4">
-                        <ul>
-                            <li><a href="">Home</a></li>
-                            <li><a href="">About</a></li>
-                            <li><a href="">Products</a></li>
-                            <li><a href="">Pricing</a></li>
-                            <li><a href="">Clients</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-sm-4">
-                        <ul>
-                            <li><a href="">Home</a></li>
-                            <li><a href="">About</a></li>
-                            <li><a href="">Products</a></li>
-                            <li><a href="">Pricing</a></li>
-                            <li><a href="">Clients</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-sm-4">
-                        <address><strong>Twitter, Inc.</strong>
-                            <br> 1355 Market Street, Suite 900
-                            <br> San Francisco, CA 94103
-                            <br>
-                            <abbr title="Phone">P:</abbr> (123) 456-7890
-                        </address>
-                        <address><strong>Tansport</strong>
-                            <br> <a href="mailto:#">first.last@example.com</a>
-                        </address>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <a id="top" class="btn btn-default" href="#">
-        <span class="glyphicon glyphicon-chevron-up"></span><br>
-        <span>TOP</span>
-    </a>
+	<div id="jumbotron" class="container-fluid jumbotron">
+		<div class="jumbotron-centered">
+			<h1>小区物业管理系统</h1>
+			<p>
+				<br>物业管理公司是小区专业管理的主体，全面负责公共设施维修等服务性工作。
+				<br>
+				<br>物业管理行业发展到现在，服务范围早已超出了清洁、绿化和安全巡逻的概念。
+				<br>
+				<br>如何利用高科技手段和计算机技术，让物业管理变得更加智能化，让物业服务效率变得更高。
+				<br>
+				<br>如何最大化满足业主、住户的需求，这已经成为整个物业行业急需解决的问题。 </p>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-6 house">
+				<h2>Latest Products</h2>
+				<p>Lorem ipsum dolor sit amet consectetur adipiscing elit sed tempor incididunt ut laboret dolore magna aliqua enim minim veniam exercitation</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-4 house">
+				<div class="house-img">
+					<img src="{% static 'image/970x647/01.jpg' %}" alt=""></div>
+				<h4>House Summary</h4>
+				<p>House intro</p> <a href="#">Read More</a></div>
+			<div class="col-sm-4 house">
+				<div class="house-img">
+					<img src="{% static 'image/970x647/01.jpg' %}" alt=""></div>
+				<h4>House Summary</h4>
+				<p>House intro</p> <a href="#">Read More</a></div>
+			<div class="col-sm-4 house">
+				<div class="house-img">
+					<img src="{% static 'image/970x647/01.jpg' %}" alt=""></div>
+				<h4>House Summary</h4>
+				<p>House intro</p> <a href="#">Read More</a></div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-6 house">
+				<h2>Showcase</h2>
+				<p>Lorem ipsum dolor sit amet consectetur adipiscing elit sed tempor incididunt ut laboret dolore magna aliqua enim minim veniam exercitation</p>
+			</div>
+		</div>
+		<div class="showcase">
+			<div class="conatiner">
+				<div class="row">
+					<div class="col-sm-8">
+						<img src="{% static 'image/970x647/02.jpg' %}" alt="">
+					</div>
+					<div class="col-sm-4">
+						<img src="{% static 'image/397x300/01.jpg' %}" alt="">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-4">
+						<img src="{% static 'image/397x300/02.jpg' %}" alt="">
+					</div>
+					<div class="col-sm-8">
+						<img src="{% static 'image/970x647/03.jpg' %}" alt="">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="footer-container">
+		<div class="wrapper">
+			<div class="conatiner">
+				<div class="row">
+					<div class="col-sm-4">
+						<ul>
+							<li><a href="">Home</a></li>
+							<li><a href="">About</a></li>
+							<li><a href="">Products</a></li>
+							<li><a href="">Pricing</a></li>
+							<li><a href="">Clients</a></li>
+						</ul>
+					</div>
+					<div class="col-sm-4">
+						<ul>
+							<li><a href="">Home</a></li>
+							<li><a href="">About</a></li>
+							<li><a href="">Products</a></li>
+							<li><a href="">Pricing</a></li>
+							<li><a href="">Clients</a></li>
+						</ul>
+					</div>
+					<div class="col-sm-4">
+						<address><strong>Twitter, Inc.</strong>
+							<br> 1355 Market Street, Suite 900
+							<br> San Francisco, CA 94103
+							<br>
+							<abbr title="Phone">P:</abbr> (123) 456-7890
+						</address>
+						<address><strong>Tansport</strong>
+							<br> <a href="mailto:#">first.last@example.com</a>
+						</address>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<a id="top" class="btn btn-default" href="#">
+		<span class="glyphicon glyphicon-chevron-up"></span><br>
+		<span>TOP</span>
+	</a>
 {% endblock %}
 {% load static %}
 <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
 {% block script %}
-    <script>
+	<script>
         $(document).ready(function () {
             $('.jumbotron').css('height', $(window).height());
             $(window).resize(function () {
@@ -147,7 +175,7 @@
                 }
             });
         })
-    </script>
+	</script>
 {% endblock %}
 </body>
 

@@ -1,17 +1,16 @@
 from django.shortcuts import render, reverse
-from django.template.loader import render_to_string
-from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
-from django.views.decorators.http import require_POST
-from main.models import HouseHolder, Billboard, Staff, Repair, House
+from django.http import JsonResponse, HttpResponseRedirect
+from main.models import HouseHolder, Billboard, Staff, Repair, House, Bill
 from main.models import RelHouseHolder, RelHouseholderRepair
 from django.core import serializers
 from django.core.exceptions import ObjectDoesNotExist
-import json
+import json, sys
+from datetime import datetime
 
 
 def verify_login(request):
     if request.session.get('user', ''):
-       return True
+        return True
     return False
 
 
@@ -116,7 +115,28 @@ def get_billboard(request, username):
     if not verify_login(request):
         return HttpResponseRedirect(reverse('index'))
 
-    billboards = Billboard.objects.all()
+    billboards = []
+    flag = False
+    if request.GET.get('s', ''):
+        if request.GET.get('title', ''):
+            billboards = Billboard.objects.filter(
+                title__contains=request.GET['title'])
+        elif request.GET.get('content', ''):
+            billboards = Billboard.objects.filter(
+                content__contains=request.GET['content'])
+        elif request.GET.get('publisher', ''):
+            billboards = Billboard.objects.filter(
+                staff_id=Staff.objects.get(username=request.GET[
+                    'publisher']).staff_id)
+        elif request.GET.get('time', ''):
+            d = datetime(*list(map(int, request.GET['time'].split('-'))))
+            billboards = Billboard.objects.filter(publish_time__lte=d)
+
+        flag = True
+
+    if not billboards and not flag:
+        billboards = Billboard.objects.all()
+
     staff_ids = [bb.staff_id for bb in billboards]
     staff_names = []
     id_name = {}
@@ -154,6 +174,10 @@ def get_repair(request, username):
             householder_id=i).order_by('-rel_id')
         repairs_id = [i.repair_id for i in repairs]
         repairs = [Repair.objects.get(repair_id=i) for i in repairs_id]
+        repairs = sorted(repairs,
+                         key=lambda repair: repair.repair_time.timestamp() if
+                         repair.repair_time else sys.maxsize,
+                         reverse=True)
         houses_rel = RelHouseHolder.objects.filter(householder_id=i)
         houses_id = [hr.house_id for hr in houses_rel]
         houses = [House.objects.get(house_id=i) for i in houses_id]
@@ -176,3 +200,7 @@ def get_repair(request, username):
                       'user/repair.html',
                       {'rs': zip(repairs, staff_names, locations),
                        'houses': houses})
+
+
+def get_bill(request, username):
+    pass

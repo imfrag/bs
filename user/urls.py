@@ -8,6 +8,9 @@ urlpatterns = [
 
     path('<str:username>/billboard', get_billboard, name="billboard"),
     path('<str:username>/repair', get_repair, name="repair"),
+    path('<str:username>/bill', get_bill, name="bill"),
 
-    path('<str:username>/update/profile', update_profile, name="update_profile"),
+    path('<str:username>/update/profile',
+         update_profile,
+         name="update_profile"),
 ]

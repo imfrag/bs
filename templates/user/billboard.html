@@ -1,88 +1,122 @@
 {% extends 'user/base.html' %}
 {% block content %}
-    <div class="container-fluid">
-{#        <div class="billboard-header">#}
-{#            <div class="row">#}
-{#                <div class="col-sm-3">#}
-{#                    <div class="input-group"> <span class="input-group-btn">#}
-{#        <button class="btn btn-default" type="button">搜索</button>#}
-{#      </span>#}
-{#                        <input type="text" class="form-control" placeholder="Search for...">#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-        <div class="billboard-content">
-            <div class="row">
-                <div class="table-responsive">
-                    <table class="table table-hover">
-                        <tr>
-                            <th>序号</th>
-                            <th>标题</th>
-                            <th>内容</th>
-                            <th>发布者</th>
-                            <th>发布时间</th>
-                            <th></th>
-                        </tr> {% for bb,s in bbs %}
-                        <tr>
-                            <td>{{ forloop.counter }}</td>
-                            <td>{{ bb.title }}</td>
-                            <td>
-                                <div class="b-content">{{ bb.content }}</div>
-                            </td>
-                            <td>{{ s }}</td>
-                            <td>{{ bb.publish_time|date:"Y-m-d D" }}</td>
-                            <td>
-                                <button type="button" class="btn btn-link btn-detail">详细信息</button>
-                            </td>
-                        </tr> {% endfor %} </table>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="blur-block"></div>
-    <div class="detail">
-    <div class="btn-close">
-        <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    </div>
-        <div class="container-fluid">
-            <div class="row">
-            <form class="form-horizontal">
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">标题：</label>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control readonly" readonly>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputPassword" class="col-sm-2
+	<div class="container-fluid">
+		<div class="billboard-header">
+			<div class="row">
+				<div class="col-sm-3">
+					<div class="input-group">
+						<div class="input-group-btn search">
+							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu cate">
+								<li value="title">
+									<a value="title" href="#">标题</a></li>
+								<li value="content">
+									<a value="content" href="#">内容</a></li>
+								<li value="publisher">
+									<a value="publisher" href="#">发布者</a></li>
+								<li value="time">
+									<a value="time" href="#">发布时间</a></li>
+							</ul>
+						</div>
+						<input type="text" class="form-control"
+						       placeholder="Search for...">
+						<span class="input-group-btn">
+                            <a class="btn btn-default search-submit" href="#"
+                               style="color:black">搜索</a>
+                        </span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="billboard-content">
+			<div class="row">
+				<div class="table-responsive">
+					<table class="table table-hover">
+						<tr>
+							<th>序号</th>
+							<th>标题</th>
+							<th>内容</th>
+							<th>发布者</th>
+							<th>发布时间</th>
+							<th></th>
+						</tr>
+						{% for bb,s in bbs %}
+						<tr>
+							<td>{{ forloop.counter }}</td>
+							<td>{{ bb.title }}</td>
+							<td>
+								<div class="b-content">{{ bb.content }}</div>
+							</td>
+							<td>{{ s }}</td>
+							<td>{{ bb.publish_time|date:"Y-m-d D" }}</td>
+							<td>
+								<button type="button" class="btn btn-link btn-detail">详细信息</button>
+							</td>
+						</tr> {% endfor %}
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="blur-block"></div>
+	<div class="detail">
+		<div class="btn-close">
+			<button type="button" class="close" aria-label="Close">
+				<span aria-hidden="true">&times;</span></button>
+		</div>
+		<div class="container-fluid">
+			<div class="row">
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label class="col-sm-2 control-label">标题：</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control readonly" readonly>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputPassword" class="col-sm-2
                     control-label">内容：</label>
-                    <div class="col-sm-10">
-                        <textarea class="form-control readonly" rows="4" readonly></textarea>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputPassword" class="col-sm-2
+						<div class="col-sm-10">
+							<textarea class="form-control readonly" rows="4" readonly></textarea>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputPassword" class="col-sm-2
                     control-label">发布者：</label>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control readonly" readonly>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputPassword" class="col-sm-2
+						<div class="col-sm-4">
+							<input type="text" class="form-control readonly" readonly>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputPassword" class="col-sm-2
                     control-label">发布日期</label>
-                    <div class="col-sm-4">
-                        <input class="form-control readonly" type="text" readonly>
-                    </div>
-                </div>
-            </form>
-                </div>
-        </div>
-    </div>
+						<div class="col-sm-4">
+							<input class="form-control readonly" type="text" readonly>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 {% endblock %}
 {% block script %}
-    <script>
+	<script>
         $(document).ready(function () {
+
+            function get_now_string() {
+                now = new Date();
+                y = now.getFullYear();
+                m = now.getMonth();
+                d = now.getDay();
+
+                m = m > 10 ? "" + m : "0" + m;
+                d = d > 10 ? "" + d : "0" + d;
+
+                return [y, m, d].join('-');
+            }
+
             $('.blur-block').hide();
             $('.detail').hide();
             $('.blur-block').css('height', $(window).height()).css('width', $(window).width())
@@ -95,8 +129,8 @@
                 tds = button_element.parent().siblings();
                 inputs = $('.form-horizontal').find('.readonly');
                 console.log(tds);
-                for(var i = 0; i < tds.length-1; i++) {
-                    $(inputs[i]).val($(tds[i+1]).text());
+                for (var i = 0; i < tds.length - 1; i++) {
+                    $(inputs[i]).val($(tds[i + 1]).text());
                 }
                 $('.blur-block').show();
                 $('.detail').show();
@@ -104,7 +138,27 @@
             $('.btn-close').click(function (e) {
                 $('.blur-block').hide();
                 $('.detail').hide();
+            });
+
+	        search_url = ""
+            $('.cate').children().click(function (e) {
+                e = $(e.target);
+                v = e.attr('value');
+                $('.search').find('button').html(e.text() + " <span class='caret'></span>");
+                if (v == "time") {
+                    $('.search').parent().find('input').attr('type', 'date')
+                        .val(get_now_string());
+                }
+
+                h = "{% url 'billboard' request.session.user.username %}";
+	            p = "?s=1&" + v + "=";
+	            search_url = h + p;
+            });
+            $('.search-submit').click(function () {
+                console.log(search_url + $('.search').parent().find('input').val())
+	            $('.search-submit').attr('href', search_url + $('.search')
+		            .parent().find('input').val());
             })
         })
-    </script>
+	</script>
 {% endblock %}
