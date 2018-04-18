@@ -1,0 +1,88 @@
+{% extends 'user/base.html' %}
+{% block content %}
+	<div class="container-fluid">
+		<div class="row">
+			<form class="form-horizontal" method="post" action="{% url 'bill' request.session.user.username %}">
+				{% csrf_token %}
+				<div class="form-group">
+					<label class="col-sm-4 control-label">账单内容：</label>
+					<div class="col-sm-4">
+						<p class="form-control-static" id="bill_description" readonly>
+							{{ bill.bill_description }}</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="inputPassword" class="col-sm-4
+						control-label">账单金额：</label>
+					<div class="col-sm-4">
+						<p class="form-control-static" id="bill_money" readonly>{{ bill.bill_money }} 元</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="inputPassword" class="col-sm-4
+                    control-label">账单收款方：</label>
+					<div class="col-sm-4">
+						<p class="form-control-static" id="bill_receive" readonly>{{ bill.bill_receive }}</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="inputPassword" class="col-sm-4
+                    control-label">账单付款方：</label>
+					<div class="col-sm-4">
+						<p class="form-control-static" id="bill_pay" readonly>{{ bill.bill_pay }}</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="inputPassword" class="col-sm-4
+                    control-label">账单创建时间：</label>
+					<div class="col-sm-4">
+						<p class="form-control-static" id="bill_createtime" readonly>{{ bill.bill_createtime|date:"Y-m-d D H:i" }}</p>
+					</div>
+				</div>
+				<input type="hidden" name="i" value="{{ bill.bill_id }}">
+				<div class="form-group">
+					<div class="col-sm-4 col-sm-offset-4">
+						<input type="submit" class="btn btn-default
+							submit-pay" value="确定缴费">
+						</input>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+{% endblock %}
+
+{#{% block script %}#}
+{#	<script>#}
+{#        $(document).ready(function () {#}
+{#            $('.blur-block').hide();#}
+{#            $('.detail').hide();#}
+{#            $('.blur-block').css('height', $(window).height()).css('width', $(window).width())#}
+{#            $(window).resize(function () {#}
+{#                $('.b-content').width($(window).width() * 0.30);#}
+{#                $('.blur-block').css('height', $(window).height()).css('width', $(window).width())#}
+{#            });#}
+{#            $('.btn-pay').click(function (e) {#}
+{#                button_element = $(e.target);#}
+{#                bill_id = button_element.attr('bill-data');#}
+{#                h = "{% url 'bill' request.session.user.username %}";#}
+{#                p = "?i=" + bill_id;#}
+{#                console.log(h + p);#}
+{#                $.get(h + p, function (response) {#}
+{#                    $('#bill_description').text(response['bill_description']);#}
+{#                    $('#bill_money').text(response['bill_money'] + " 元");#}
+{#                    $('#bill_receive').text(response['bill_receive']);#}
+{#                    $('#bill_pay').text(response['bill_pay']);#}
+{#                    $('#bill_createtime').text(response['bill_createtime']);#}
+{#                    $('.detail').find("input[type='hidden']").val(response['bill_id'])#}
+{#                    $('.blur-block').show();#}
+{#                    $('.detail').show();#}
+{#                });#}
+{#            });#}
+{#            $('.btn-close').click(function (e) {#}
+{#                $('.blur-block').hide();#}
+{#                $('.detail').hide();#}
+{#            });#}
+{#        })#}
+{#	</script>#}
+{#{% endblock %}#}

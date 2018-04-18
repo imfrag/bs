@@ -79,6 +79,25 @@ class Repair(models.Model):
                                  self.repair_description)
 
 
+class Bill(models.Model):
+
+    class Meta:
+        db_table = "bill"
+
+    bill_id = models.AutoField(primary_key=True)
+    bill_description = models.CharField(max_length=50)
+    bill_money = models.FloatField()
+    bill_receive = models.CharField(max_length=10, default="小区物业")
+    bill_pay = models.CharField(max_length=10)
+    bill_createtime = models.DateTimeField(default=timezone.now)
+    bill_paytime = models.DateTimeField(null=True, blank=True)
+
+    def __str__(self):
+        return "%s - %s - %s" % (self.bill_id,
+                                 self.bill_description,
+                                 self.bill_money)
+
+
 class Staff(models.Model):
 
     class Meta:

@@ -4,6 +4,7 @@ from main.models import HouseHolder, Billboard, Staff, Repair, House, Bill
 from main.models import RelHouseHolder, RelHouseholderRepair
 from django.core import serializers
 from django.core.exceptions import ObjectDoesNotExist
+from django.utils import timezone
 import json, sys
 from datetime import datetime
 
@@ -205,4 +206,21 @@ def get_repair(request, username):
 
 
 def get_bill(request, username):
-    pass
+
+    if request.method == "POST":
+        i = request.POST['i']
+        b = Bill.objects.get(bill_id=i)
+        b.bill_paytime = timezone.now()
+        print(b.bill_paytime)
+        b.save()
+        return HttpResponseRedirect(reverse('bill', args=(username, )))
+    elif request.method == "GET":
+
+        if request.GET.get('i', ''):
+            i = request.GET['i']
+            bill = Bill.objects.get(bill_id=i)
+            return render(request, 'user/bill_detail.html', {'bill': bill})
+
+        bills = Bill.objects.filter(bill_pay=username)
+        return render(request, 'user/bill.html', {'bills': bills})
+

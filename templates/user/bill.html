@@ -1,0 +1,79 @@
+{% extends 'user/base.html' %}
+{% block content %}
+	<div class="container-fluid">
+		<div class="row repair-table">
+			<div class="table-responsive">
+				<table class="table table-hover">
+					<tr>
+						<th>序号</th>
+						<th>账单内容</th>
+						<th>账单金额</th>
+						{#                        <th>账单收款方</th>#}
+						{#                        <th>账单付款方</th>#}
+						<th>账单创建时间</th>
+						<th></th>
+					</tr>
+					{% for b in bills %}
+						<tr class="{% if b.bill_paytime %}info{% else %}danger{% endif %}">
+							<td>{{ forloop.counter }}</td>
+							<td>{{ b.bill_description }}</td>
+							<td>
+								{{ b.bill_money }}元
+							</td>
+							<td>{{ b.bill_createtime|date:"Y-m-d D H:i" }}</td>
+							{% if b.bill_paytime %}
+								<td>已缴款
+									{{ b.bill_paytime|date:"Y-m-d D H:i" }}</td>
+							{% else %}
+								<td>
+{#									<button bill-data="{{ b.bill_id }}"#}
+{#									        class="btn btn-default btn-pay">缴费#}
+{#									</button>#}
+									<a style="color:black" class="btn
+									btn-default" href=
+											"
+{% url 'bill' request.session.user.username %}?i={{ b.bill_id }}">缴费</a>
+								</td>
+							{% endif %}
+						</tr>
+					{% endfor %}
+				</table>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{#{% block script %}#}
+{#	<script>#}
+{#        $(document).ready(function () {#}
+{#            $('.blur-block').hide();#}
+{#            $('.detail').hide();#}
+{#            $('.blur-block').css('height', $(window).height()).css('width', $(window).width())#}
+{#            $(window).resize(function () {#}
+{#                $('.b-content').width($(window).width() * 0.30);#}
+{#                $('.blur-block').css('height', $(window).height()).css('width', $(window).width())#}
+{#            });#}
+{#            $('.btn-pay').click(function (e) {#}
+{#                button_element = $(e.target);#}
+{#                bill_id = button_element.attr('bill-data');#}
+{#                h = "{% url 'bill' request.session.user.username %}";#}
+{#                p = "?i=" + bill_id;#}
+{#                console.log(h + p);#}
+{#                $.get(h + p, function (response) {#}
+{#                    $('#bill_description').text(response['bill_description']);#}
+{#                    $('#bill_money').text(response['bill_money'] + " 元");#}
+{#                    $('#bill_receive').text(response['bill_receive']);#}
+{#                    $('#bill_pay').text(response['bill_pay']);#}
+{#                    $('#bill_createtime').text(response['bill_createtime']);#}
+{#                    $('.detail').find("input[type='hidden']").val(response['bill_id'])#}
+{#                    $('.blur-block').show();#}
+{#                    $('.detail').show();#}
+{#                });#}
+{#            });#}
+{#            $('.btn-close').click(function (e) {#}
+{#                $('.blur-block').hide();#}
+{#                $('.detail').hide();#}
+{#            });#}
+{#        })#}
+{#	</script>#}
+{#{% endblock %}#}
