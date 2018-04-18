@@ -131,6 +131,8 @@ def get_billboard(request, username):
         elif request.GET.get('time', ''):
             d = datetime(*list(map(int, request.GET['time'].split('-'))))
             billboards = Billboard.objects.filter(publish_time__lte=d)
+        else:
+            billboards = Billboard.objects.all()
 
         flag = True
 

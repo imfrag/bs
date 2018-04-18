@@ -25,6 +25,8 @@
 						<span class="input-group-btn">
                             <a class="btn btn-default search-submit" href="#"
                                style="color:black">搜索</a>
+{#							<button class="btn btn-default#}
+{#							search-submit">搜索</button>#}
                         </span>
 					</div>
 				</div>
@@ -140,7 +142,7 @@
                 $('.detail').hide();
             });
 
-	        search_url = ""
+	        var cate;
             $('.cate').children().click(function (e) {
                 e = $(e.target);
                 v = e.attr('value');
@@ -149,15 +151,17 @@
                     $('.search').parent().find('input').attr('type', 'date')
                         .val(get_now_string());
                 }
-
-                h = "{% url 'billboard' request.session.user.username %}";
-	            p = "?s=1&" + v + "=";
-	            search_url = h + p;
+				cate = v;
             });
             $('.search-submit').click(function () {
-                console.log(search_url + $('.search').parent().find('input').val())
-	            $('.search-submit').attr('href', search_url + $('.search')
-		            .parent().find('input').val());
+                var search_url = "{% url 'billboard' request.session.user.username %}";
+                if (Boolean($('.search').parent().find('input').val()) &&
+	                Boolean(cate)) {
+                    search_url = search_url + "?s=1&" + cate + "=";
+                    $('.search-submit').attr('href', search_url + $('.search').parent().find('input').val());
+                }else {
+                    $('.search-submit').attr('href', search_url);
+                }
             })
         })
 	</script>
